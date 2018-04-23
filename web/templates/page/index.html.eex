@@ -1,0 +1,4 @@
+<div class="jumbotron">
+  <h2><%= gettext "Welcome to %{name}", name: "Vidshare!" %></h2>
+  <p class="lead"> The dashboard is currently a work in progress</p>
+</div>

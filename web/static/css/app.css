@@ -1,0 +1,32 @@
+/* This file is for your main application css. */
+body {
+	background-color: black;
+	color: white;
+}
+.jumbotron {
+    background-color: #303030;
+    text-align: center;
+}
+.breadcrumb {
+	background-color: #303030;
+}
+.NewLogo {
+	margin-top: -7px;
+	float: left;
+	height: 30px;
+	display: inline;
+}
+.link {
+	text-decoration-style: none;
+	color: orange;
+}
+.header {
+  border-bottom: 5px solid;
+  border-image: linear-gradient(140deg, yellow, red) 1;
+}
+.box {
+	padding: 10px 20px;
+	margin-bottom: 20px;
+	background-color: #303030;
+	border-radius: 10px;
+}
