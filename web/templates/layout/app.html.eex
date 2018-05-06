@@ -20,14 +20,14 @@
             <img class="NewLogo" src="/images/logo.png">
             <%= if @current_user do %>
               <li class="link">
-                <%= @current_user.username %>                 
+                <%= @current_user.username %>
               </li>
               <li>
                 <%= link "Log out", to: session_path(@conn, :delete, @current_user), method: "delete" %>
               </li>
             <% else %>
               <li>
-                <%= link "Register", to: user_path(@conn, :new) %> 
+                <%= link "Register", to: user_path(@conn, :new) %>
               </li>
               <li>
                 <%= link "Log in", to: session_path(@conn, :new) %>
