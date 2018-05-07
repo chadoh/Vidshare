@@ -19,8 +19,11 @@ defmodule Vidshare.Router do
     pipe_through(:browser)
 
     get("/", PageController, :index)
+    get("/profile", UserController, :profile)
     resources("/users", UserController)
+    resources("/videos", VideoController)
     resources("/sessions", SessionController, only: [:new, :create, :delete])
+    resources("/reviews", ReviewController)
   end
 
   # Other scopes may use custom stacks.

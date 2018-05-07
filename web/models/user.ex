@@ -6,14 +6,16 @@ defmodule Vidshare.User do
     field(:name, :string)
     field(:password, :string, virtual: true)
     field(:password_hash, :string)
+    field(:permission, :integer)
 
     timestamps()
   end
 
   def changeset(model, params \\ :invalid) do
     model
-    |> cast(params, ~w(name username))
+    |> cast(params, ~w(name username permission))
     |> validate_length(:username, min: 1, max: 20)
+    |> validate_required([:permission, :name, :username])
     |> unique_constraint(:username)
   end
 

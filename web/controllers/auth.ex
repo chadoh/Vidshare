@@ -14,6 +14,16 @@ defmodule Vidshare.Auth do
     assign(conn, :current_user, user)
   end
 
+  def session(conn) do
+    user = get_session(conn, :user_id)
+
+    if user == nil do
+      'none'
+    else
+      Vidshare.Repo.get(Vidshare.User, user)
+    end
+  end
+
   def login(conn, user) do
     conn
     |> assign(:current_user, user)
@@ -49,6 +59,17 @@ defmodule Vidshare.Auth do
       conn
       |> put_flash(:error, "You must be logged in to access that page")
       |> redirect(to: Helpers.page_path(conn, :index))
+      |> halt()
+    end
+  end
+
+  def authenticate_admin(conn, _opts) do
+    if session(conn).permission == 1 do
+      conn
+    else
+      conn
+      |> put_flash(:error, "This page is currently unacessable.")
+      |> redirect(to: Helpers.user_path(conn, :profile))
       |> halt()
     end
   end

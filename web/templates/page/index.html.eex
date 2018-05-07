@@ -1,4 +1,8 @@
 <div class="jumbotron">
   <h2><%= gettext "Welcome to %{name}", name: "Vidshare!" %></h2>
-  <p class="lead"> The dashboard is currently a work in progress</p>
+  <p class="lead"> Video comment and review site!</p>
 </div>
+<%= if @user != 'none' do %>
+	<%= link "Profile", to: user_path(@conn, :profile) %> |
+	<%= link "Videos", to: video_path(@conn, :index) %>
+<% end %>

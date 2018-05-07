@@ -1,0 +1,7 @@
+<h2>New review</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: review_path(@conn, :create),
+                        users: @users,
+                        videos: @videos %>
+<%= link "Back", to: review_path(@conn, :index) %>

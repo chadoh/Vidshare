@@ -1,0 +1,28 @@
+<h2>Show review</h2>
+
+<ul>
+
+  <li>
+    <strong>User:</strong>
+    <%= @review.user_id %>
+  </li>
+
+  <li>
+    <strong>Video:</strong>
+    <%= @review.video_id %>
+  </li>
+
+  <li>
+    <strong>Video review link:</strong>
+    <%= @review.video_review_link %>
+  </li>
+
+  <li>
+    <strong>Comment:</strong>
+    <%= @review.comment %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: review_path(@conn, :edit, @review) %>
+<%= link "Back", to: review_path(@conn, :index) %>

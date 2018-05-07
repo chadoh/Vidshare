@@ -36,6 +36,8 @@ defmodule Vidshare.Web do
 
       import Vidshare.Router.Helpers
       import Vidshare.Gettext
+      # New import
+      import Vidshare.Auth, only: [authenticate_user: 2, authenticate_admin: 2]
     end
   end
 
@@ -58,6 +60,7 @@ defmodule Vidshare.Web do
   def router do
     quote do
       use Phoenix.Router
+      import Vidshare.Auth, only: [authenticate_user: 2]
     end
   end
 

@@ -6,6 +6,7 @@
       <tr>
         <th>Username</th>
         <th>Name</th>
+        <th>Permissions</th>
 
         <th></th>
       </tr>
@@ -15,6 +16,11 @@
       <tr>
         <td><%= user.username %></td>
         <td><%= user.name %></td>
+        <%= if user.permission == 1 do %>
+        <td>Admin</td>
+        <% else %>
+        <td>Member</td>
+        <% end %>
 
         <td class="text-right">
           <%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
@@ -27,4 +33,5 @@
   </table>
 </div>
 
-<%= link "New user", to: user_path(@conn, :new) %>
+<%= link "New user", to: user_path(@conn, :new) %> |
+<%= link "Back", to: user_path(@conn, :profile) %>

@@ -3,13 +3,13 @@ defmodule Vidshare.Repo.Migrations.CreateUser do
 
   def change do
     create table(:users) do
-      add :username, :string
-      add :name, :string
-      add :password, :string
-      add :password_hash, :string
+      add(:username, :string)
+      add(:name, :string)
+      add(:password, :string)
+      add(:password_hash, :string)
+      add(:permission, :integer)
 
       timestamps()
     end
-
   end
 end
