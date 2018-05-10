@@ -1,7 +1,7 @@
 defmodule Vidshare.UserController do
   use Vidshare.Web, :controller
   plug(:authenticate_user when action in [:index, :show, :delete, :update, :edit, :profile])
-  plug(:authenticate_admin when action in [:index, :show, :delete])
+  plug(:authenticate_admin when action in [:index, :show, :delete, :edit, :update])
 
   alias Vidshare.User
   alias Vidshare.Auth
@@ -23,6 +23,7 @@ defmodule Vidshare.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    user = Auth.session(conn)
     changeset = User.registration_changeset(%User{}, user_params)
 
     case Repo.insert(changeset) do
@@ -34,6 +35,34 @@ defmodule Vidshare.UserController do
 
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
+    end
+  end
+
+  def edit(conn, %{"id" => id}) do
+    user = Auth.session(conn)
+    users = Repo.get!(User, id)
+    changeset = User.changeset(users)
+    render(conn, "edit.html", users: users, changeset: changeset, user: user)
+  end
+
+  def update(conn, %{"id" => id, "user" => user_params}) do
+    user = Auth.session(conn)
+    users = Repo.get!(User, id)
+
+    if user.permission == 1 and users.id != user.id do
+      changeset = User.change_permissions_changeset(users, user_params)
+    else
+      changeset = User.changeset(users, user_params)
+    end
+
+    case Repo.update(changeset) do
+      {:ok, users} ->
+        conn
+        |> put_flash(:info, "User updated successfully.")
+        |> redirect(to: user_path(conn, :show, users))
+
+      {:error, changeset} ->
+        render(conn, "edit.html", users: users, changeset: changeset)
     end
   end
 

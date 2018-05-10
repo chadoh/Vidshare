@@ -7,7 +7,7 @@ defmodule Vidshare.Repo.Migrations.CreateUser do
       add(:name, :string)
       add(:password, :string)
       add(:password_hash, :string)
-      add(:permission, :integer)
+      add(:permission, :integer, default: 0)
 
       timestamps()
     end

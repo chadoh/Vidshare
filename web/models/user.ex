@@ -13,9 +13,9 @@ defmodule Vidshare.User do
 
   def changeset(model, params \\ :invalid) do
     model
-    |> cast(params, ~w(name username permission))
+    |> cast(params, ~w(name username))
     |> validate_length(:username, min: 1, max: 20)
-    |> validate_required([:permission, :name, :username])
+    |> validate_required([:name, :username])
     |> unique_constraint(:username)
   end
 
@@ -25,6 +25,11 @@ defmodule Vidshare.User do
     |> cast(params, [:password])
     |> validate_length(:password, min: 6, max: 100)
     |> put_pass_hash()
+  end
+
+  def change_permissions_changeset(model, params) do
+    model
+    |> cast(params, [:permission])
   end
 
   defp put_pass_hash(changeset) do

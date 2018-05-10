@@ -1,28 +1,30 @@
 <h2>Show review</h2>
+<div class="box">
+  <ul>
 
-<ul>
+    <li>
+      <strong>User:</strong>
+      <%= Vidshare.Repo.get(Vidshare.User, @review.user_id).username %>
+    </li>
 
-  <li>
-    <strong>User:</strong>
-    <%= @review.user_id %>
-  </li>
+    <li>
+      <strong>Video:</strong>
+      <%= Vidshare.Repo.get(Vidshare.Video, @review.video_id).name %>
+    </li>
 
-  <li>
-    <strong>Video:</strong>
-    <%= @review.video_id %>
-  </li>
+    <li>
+      <strong>Video review link:</strong>
+      <%= @review.video_review_link %>
+    </li>
 
-  <li>
-    <strong>Video review link:</strong>
-    <%= @review.video_review_link %>
-  </li>
+    <li>
+      <strong>Comment:</strong>
+      <%= @review.comment %>
+    </li>
 
-  <li>
-    <strong>Comment:</strong>
-    <%= @review.comment %>
-  </li>
-
-</ul>
-
-<%= link "Edit", to: review_path(@conn, :edit, @review) %>
+  </ul>
+</div>
+<%= if @user.permission == 1 or @user.id == @review.user_id do %>
+  <%= link "Edit", to: review_path(@conn, :edit, @review) %> |
+<% end %>
 <%= link "Back", to: review_path(@conn, :index) %>

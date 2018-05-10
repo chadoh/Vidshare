@@ -16,7 +16,6 @@ defmodule Vidshare.Review do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:video_review_link, :comment, :user_id, :video_id])
-    |> IO.inspect()
     |> validate_required([:video_id, :user_id])
   end
 end

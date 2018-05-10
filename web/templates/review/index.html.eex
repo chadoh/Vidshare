@@ -1,33 +1,36 @@
 <h2>Listing reviews</h2>
+<div class="box">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Video</th>
+        <th>Video review link</th>
+        <th>Comment</th>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Video</th>
-      <th>Video review link</th>
-      <th>Comment</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+  <%= for review <- @reviews do %>
+      <tr>
+        <td><%= Vidshare.Repo.get(Vidshare.User, review.user_id).username %></td>
+        <td><%= Vidshare.Repo.get(Vidshare.Video, review.video_id).name %></td>
+        <td><%= review.video_review_link %></td>
+        <td><%= review.comment %></td>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for review <- @reviews do %>
-    <tr>
-      <td><%= review.user_id %></td>
-      <td><%= review.video_id %></td>
-      <td><%= review.video_review_link %></td>
-      <td><%= review.comment %></td>
-
-      <td class="text-right">
-        <%= link "Show", to: review_path(@conn, :show, review), class: "btn btn-default btn-xs" %>
-        <%= link "Edit", to: review_path(@conn, :edit, review), class: "btn btn-default btn-xs" %>
-        <%= link "Delete", to: review_path(@conn, :delete, review), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+        <td class="text-right">
+          <%= link "Show", to: review_path(@conn, :show, review), class: "btn btn-default btn-xs" %>
+          <%= if @user.permission == 1 or @user.id == review.user_id do %>
+            <%= link "Edit", to: review_path(@conn, :edit, review), class: "btn btn-default btn-xs" %>
+            <%= link "Delete", to: review_path(@conn, :delete, review), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+    </tbody>
+  </table>
+</div>
 
 <%= link "New review", to: review_path(@conn, :new) %> |
 <%= link "Back", to: user_path(@conn, :profile) %>

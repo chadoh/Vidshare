@@ -13,6 +13,15 @@
       <%= @user.name %>
     </li>
 
+    <li>
+      <strong>Permission:</strong>
+      <%= if @user.permission == 1 do %>
+        Admin
+      <% else %>
+        Member
+      <% end %>
+    </li>
+
   </ul>
 </div>
 <%= link "Edit", to: user_path(@conn, :edit, @user) %> |

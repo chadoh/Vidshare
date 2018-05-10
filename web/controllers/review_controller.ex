@@ -1,13 +1,17 @@
 defmodule Vidshare.ReviewController do
   use Vidshare.Web, :controller
+  plug(:authenticate_user)
+  plug(:authenticate_admin when action in [:new, :create, :delete])
 
   alias Vidshare.Review
   alias Vidshare.User
   alias Vidshare.Video
+  alias Vidshare.Auth
 
   def index(conn, _params) do
+    user = Auth.session(conn)
     reviews = Repo.all(Review)
-    render(conn, "index.html", reviews: reviews)
+    render(conn, "index.html", reviews: reviews, user: user)
   end
 
   def new(conn, _params) do
@@ -34,21 +38,24 @@ defmodule Vidshare.ReviewController do
   end
 
   def show(conn, %{"id" => id}) do
+    user = Auth.session(conn)
     review = Repo.get!(Review, id)
-    render(conn, "show.html", review: review)
+    render(conn, "show.html", review: review, user: user)
   end
 
   def edit(conn, %{"id" => id}) do
     videos = Repo.all(Video)
-    users = Repo.all(Review)
+    users = Repo.all(User)
     review = Repo.get!(Review, id)
     changeset = Review.changeset(review)
-    render(conn, "edit.html", review: review, changeset: changeset, videos: videos)
+    render(conn, "edit.html", review: review, changeset: changeset, videos: videos, users: users)
   end
 
   def update(conn, %{"id" => id, "review" => review_params}) do
     review = Repo.get!(Review, id)
     changeset = Review.changeset(review, review_params)
+    IO.inspect(review_params)
+    IO.inspect(changeset)
 
     case Repo.update(changeset) do
       {:ok, review} ->

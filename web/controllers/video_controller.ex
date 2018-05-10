@@ -1,10 +1,11 @@
 defmodule Vidshare.VideoController do
   use Vidshare.Web, :controller
   plug(:authenticate_user)
-  plug(:authenticate_admin when action in [:delete, :update, :edit, :profile])
+  plug(:authenticate_admin when action in [:delete, :update, :edit, :new, :create])
 
   alias Vidshare.Video
   alias Vidshare.Auth
+  alias Vidshare.Review
 
   def index(conn, _params) do
     user = Auth.session(conn)
@@ -32,9 +33,11 @@ defmodule Vidshare.VideoController do
   end
 
   def show(conn, %{"id" => id}) do
+    query = from(r in Review, where: r.video_id == ^id and not is_nil(r.comment))
+    review = Repo.all(query)
     user = Auth.session(conn)
     video = Repo.get!(Video, id)
-    render(conn, "show.html", video: video, user: user)
+    render(conn, "show.html", video: video, user: user, review: review)
   end
 
   def edit(conn, %{"id" => id}) do
