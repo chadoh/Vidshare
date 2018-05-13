@@ -12,22 +12,22 @@
       </tr>
     </thead>
     <tbody>
-  <%= for user <- @users do %>
-      <tr>
-        <td><%= user.username %></td>
-        <td><%= user.name %></td>
-        <%= if user.permission == 1 do %>
-        <td>Admin</td>
-        <% else %>
-        <td>Member</td>
-        <% end %>
+      <%= for user <- @users do %>
+        <tr>
+          <td><%= user.username %></td>
+          <td><%= user.name %></td>
+          <%= if user.permission == 1 do %>
+            <td>Admin</td>
+          <% else %>
+            <td>Member</td>
+          <% end %>
 
-        <td class="text-right">
-          <%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
-          <%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
-        </td>
-      </tr>
-  <% end %>
+          <td class="text-right">
+            <%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %>
+            <%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>

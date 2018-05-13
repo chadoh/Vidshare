@@ -1,33 +1,33 @@
 <div class="box">
-<h2>Listing videos</h2>
+  <h2>Listing videos</h2>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Download</th>
-      <th>Name</th>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Download</th>
+        <th>Name</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for video <- @videos do %>
-    <tr>
-      <td>Download</td>
-      <td><%= video.name %></td>
-      <td class="text-right">
-        <%= link "Show", to: video_path(@conn, :show, video), class: "btn btn-default btn-xs" %>
-      <%= if @user.permission == 1 do %>
-          <%= link "Edit", to: video_path(@conn, :edit, video), class: "btn btn-default btn-xs" %>
-          <%= link "Delete", to: video_path(@conn, :delete, video), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for video <- @videos do %>
+        <tr>
+          <td>Download</td>
+          <td><%= video.name %></td>
+          <td class="text-right">
+            <%= link "Show", to: video_path(@conn, :show, video), class: "btn btn-default btn-xs" %>
+            <%= if @user.permission == 1 do %>
+              <%= link "Edit", to: video_path(@conn, :edit, video), class: "btn btn-default btn-xs" %>
+              <%= link "Delete", to: video_path(@conn, :delete, video), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
+            <% end %>
+          </td>
+        </tr>
       <% end %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 </div>
 <%= if @user.permission == 1 do %>
-<%= link "New video", to: video_path(@conn, :new) %> |
+  <%= link "New video", to: video_path(@conn, :new) %> |
 <% end %>
 <%= link "Back", to: user_path(@conn, :profile) %>

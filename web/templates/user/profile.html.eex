@@ -17,7 +17,7 @@
 
             <td class="text-right">
               <%= link "Show", to: review_path(@conn, :show, review), class: "btn btn-default btn-xs" %>
-              <%= link "Edit", to: review_path(@conn, :edit, review), class: "btn btn-default btn-xs" %> 
+              <%= link "Edit", to: review_path(@conn, :edit, review), class: "btn btn-default btn-xs" %>
             </td>
 
           </tr>
@@ -37,13 +37,13 @@
     </thead>
     <tbody>
       <%= for review <- @review do %>
-          <%= if review.user_id == @user.id and review.comment != nil do %>
+        <%= if review.user_id == @user.id and review.comment != nil do %>
           <tr>
             <td><%= Vidshare.Repo.get(Vidshare.Video, review.video_id).name %></td>
 
             <td class="text-right">
               <%= link "Show", to: review_path(@conn, :show, review), class: "btn btn-default btn-xs" %>
-              <%= link "Edit", to: review_path(@conn, :edit, review), class: "btn btn-default btn-xs" %> 
+              <%= link "Edit", to: review_path(@conn, :edit, review), class: "btn btn-default btn-xs" %>
             </td>
 
           </tr>
@@ -53,7 +53,7 @@
   </table>
 </div>
 <%= if @user.permission == 1 do %>
-<%= link "Users", to: user_path(@conn, :index) %> |
+  <%= link "Users", to: user_path(@conn, :index) %> |
 <% end %>
 <%= link "Videos", to: video_path(@conn, :index) %> |
 <%= link "Reviews", to: review_path(@conn, :index) %>

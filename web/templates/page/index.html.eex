@@ -3,6 +3,6 @@
   <p class="lead"> Video comment and review site!</p>
 </div>
 <%= if @user != 'none' do %>
-	<%= link "Profile", to: user_path(@conn, :profile) %> |
-	<%= link "Videos", to: video_path(@conn, :index) %>
+  <%= link "Profile", to: user_path(@conn, :profile) %> |
+  <%= link "Videos", to: video_path(@conn, :index) %>
 <% end %>

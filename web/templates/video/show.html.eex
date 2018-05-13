@@ -1,9 +1,9 @@
 <div class="box">
-<h2><%= @video.name %></h2>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @video.video_link %>"  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-<br>
-<h2>Reviews</h2>
-<table class="table">
+  <h2><%= @video.name %></h2>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @video.video_link %>"  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  <br>
+  <h2>Reviews</h2>
+  <table class="table">
     <thead>
       <tr>
         <th>User</th>
@@ -14,19 +14,19 @@
       </tr>
     </thead>
     <tbody>
-  <%= for review <- @review do %>
-  	<tr>
-	    <td><%= Vidshare.Repo.get(Vidshare.User, review.user_id).username %></td>
-	    <td><%= review.comment %></td>
-	    <td><%= review.video_review_link %></td>
-      <td class="text-right">
-        <%= link "Show", to: review_path(@conn, :show, review), class: "btn btn-default btn-xs" %>
-      </td>
-    </tr>
+      <%= for review <- @review do %>
+        <tr>
+          <td><%= Vidshare.Repo.get(Vidshare.User, review.user_id).username %></td>
+          <td><%= review.comment %></td>
+          <td><%= review.video_review_link %></td>
+          <td class="text-right">
+            <%= link "Show", to: review_path(@conn, :show, review), class: "btn btn-default btn-xs" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= if @user.permission == 1 do %>
+    <%= link "Edit", to: video_path(@conn, :edit, @video) %> |
   <% end %>
-	</tbody>
-</table>
-<%= if @user.permission == 1 do %>
-  <%= link "Edit", to: video_path(@conn, :edit, @video) %> |
-<% end %>
-<%= link "Back", to: video_path(@conn, :index) %>
+  <%= link "Back", to: video_path(@conn, :index) %>
